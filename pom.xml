@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.taskagile</groupId>
+    <groupId>com.organizr</groupId>
     <artifactId>app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Task Agile</name>
-    <description>Open source task management tool</description>
+    <name>Organizr</name>
+    <description>Application to organize your work</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -24,6 +24,15 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <myActiveProfile>dev</myActiveProfile>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
