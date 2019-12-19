@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import LoginPage from '@/views/LoginPage'
+import LoginPage from '../../src/views/LoginPage'
 
 describe('LoginPage.vue', () => {
   it('should render correct contents', () => {

@@ -6,8 +6,8 @@
         <img class="logo" src="/static/images/logo.png">
         <div class="tagline">Open source task management tool</div>
       </div>
-      <form @submit="submitForm">
-        <div v-show="errorMessage" class="alert alert-danger failed">{{errorMessage}}</div>
+      <form @submit.prevent="submitForm">
+        <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" class="form-control" id="username" v-model="form.username">
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import registrationService from '../services/registration'
+
 export default {
   name: 'RegisterPage',
   data: function () {
@@ -42,12 +44,18 @@ export default {
         username: '',
         emailAddress: '',
         password: ''
-      }
+      },
+      errorMessage: ''
     }
   },
   methods: {
     submitForm () {
-
+      // TODO Validate the data
+      registrationService.register(this.form).then(() => {
+        this.$router.push({ name: 'LoginPage' })
+      }).catch((error) => {
+        this.errorMessage = 'Failed to register user. Reason: ' + error.message
+      })
     }
   }
 }
