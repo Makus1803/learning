@@ -4,6 +4,10 @@ import BootstrapVue from 'bootstrap-vue'
 import router from './router'
 import axios from 'axios'
 import store from './store'
+import Vuelidate from 'vuelidate'
+
+Vue.use(BootstrapVue)
+Vue.use(Vuelidate)
 
 // Bootstrap axios
 axios.defaults.baseURL = '/api'
@@ -15,7 +19,6 @@ axios.interceptors.response.use(
   }
 )
 
-Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 
