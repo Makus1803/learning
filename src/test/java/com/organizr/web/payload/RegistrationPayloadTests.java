@@ -1,7 +1,5 @@
 package com.organizr.web.payload;
 
-
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,18 +48,62 @@ public class RegistrationPayloadTests {
         RegistrationPayload payload = new RegistrationPayload();
         payload.setUsername("CorrectUsername");
         payload.setEmailAddress(randomString + "@" + randomString);
-        payload.setPassword("CorrectPassword");
+        payload.setPassword("CorrectPassword123");
 
         Set<ConstraintViolation<RegistrationPayload>> violations =
                 validator.validate(payload);
         assertEquals(1, violations.size());
     }
 
-    // TODO Validate all other data
     @Test
     public void validate_payloadWithUsernameShorterThan2_shouldFail(){
         RegistrationPayload payload = new RegistrationPayload();
+        payload.setUsername("t");
+        payload.setEmailAddress("Correct@email.com");
+        payload.setPassword("CorrectPassword123");
 
+        Set<ConstraintViolation<RegistrationPayload>> violations =
+                validator.validate(payload);
+        assertEquals(1, violations.size());
     }
 
+    @Test
+    public void validate_payloadWithUsernameLongerThan50_shouldFail(){
+        String random = RandomStringUtils.randomAlphanumeric(55);
+
+        RegistrationPayload payload = new RegistrationPayload();
+        payload.setUsername(random);
+        payload.setEmailAddress("Correct@email.com");
+        payload.setPassword("CorrectPassword123");
+
+        Set<ConstraintViolation<RegistrationPayload>> violations =
+                validator.validate(payload);
+        assertEquals(1, violations.size());
+    }
+
+    @Test
+    public void validate_payloadWithPasswordShorterThan6_shouldFail(){
+        RegistrationPayload payload = new RegistrationPayload();
+        payload.setUsername("CorrectUsername");
+        payload.setEmailAddress("Correct@email.com");
+        payload.setPassword("bad");
+
+        Set<ConstraintViolation<RegistrationPayload>> violations =
+                validator.validate(payload);
+        assertEquals(1, violations.size());
+    }
+
+    @Test
+    public void validate_payloadWithPasswordLongerThan40_shouldFail(){
+        String random = RandomStringUtils.randomAlphanumeric(55);
+
+        RegistrationPayload payload = new RegistrationPayload();
+        payload.setUsername("CorrectUsername");
+        payload.setEmailAddress("Correct@email.com");
+        payload.setPassword(random);
+
+        Set<ConstraintViolation<RegistrationPayload>> violations =
+                validator.validate(payload);
+        assertEquals(1, violations.size());
+    }
 }
